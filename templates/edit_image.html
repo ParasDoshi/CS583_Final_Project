@@ -1,0 +1,81 @@
+<!doctype html>
+<html>
+
+<head>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+    integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <!-- JavaScript libraries required for components -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+    integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+    integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+    crossorigin="anonymous"></script>
+  <!-- Finish Bootstrap import -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+  <div class="jumbotron text-left">
+    <h1 class="display-6">Seam Carving API</h1>
+    <p class="lead">This is a simple almost instant Seam Carving API</p>
+    <hr class="my-4">
+    <p>It uses prestored seams to provide instantaneous content aware image resizing</p>
+  </div>
+  <div class="col-md-6">
+    {% if filename %}
+    <h3>Uploaded Image</h3>
+    <img src={{ filename }} height=400>
+    <br>
+    <h3>Image Information</h3>
+    <p>Enter the new image dimensions</p>
+    <p><i>please note that you will not be able decrease height as this is a limitation of the method</i></p>
+    <div>
+      <form action={{ url_for("resize_image") }} method="POST">
+        <div class="form-group">
+          <label for="height">Input File (For reference)</label>
+          <div class="form-group">
+            <input class="form-control" id="filepath" type="text" name="filepath" value={{ filename }} readonly>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="height">Current Image Height</label>
+              <input type="text" class="form-control" id="height" value={{height}} name="height" readonly>
+            </div>
+            <div class="form-group col-md-6">
+              <label for="width">Current Image Width</label>
+              <input type="text" class="form-control" id="width" value={{width}} name="width" readonly>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="height">New Image Height</label>
+              <input type="text" class="form-control" id="new_height" name="new_height">
+            </div>
+            <div class="form-group col-md-6">
+              <label for="width">New Image Width</label>
+              <input type="text" class="form-control" id="new_width" name="new_width">
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary">Generate New Image</button>
+        </div>
+      </form>
+    </div>
+    {% endif %}
+  </div>
+  <div class="col-md-6">
+    {% if resize %}
+    <h3>Resized Image</h3>
+    <img src={{ resize }} height=400>
+    {% endif %}
+  </div>
+  <br>
+  <br>
+</body>
+
+</html>
